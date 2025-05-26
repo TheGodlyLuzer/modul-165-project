@@ -1,8 +1,9 @@
 // client/app/layout.tsx
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type {Metadata} from "next";
+import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import {PropsWithChildren} from "react";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -19,11 +20,7 @@ export const metadata: Metadata = {
     description: "Manage and share your favorite recipes",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode;
-}) {
+export default function RootLayout({children}: PropsWithChildren) {
     return (
         <html lang="en">
         <body
@@ -39,7 +36,7 @@ export default function RootLayout({
                         href="/recipes/create"
                         className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
-                        + New Recipe
+                        + Neues Rezept
                     </Link>
                 </nav>
             </div>

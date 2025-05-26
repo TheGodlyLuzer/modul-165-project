@@ -3,11 +3,11 @@ import Link from "next/link";
 import {notFound} from "next/navigation";
 import DeleteButton from "@/components/DeleteButton";
 
-export default async function RecipePage({
-                                             params,
-                                         }: {
+type Props = {
     params: Promise<{ id: string }>;
-}) {
+}
+
+export default async function RecipePage({params}: Props) {
     const {id} = await params;
     const res = await fetch(`${process.env.API_URL}/recipes/${id}`, {cache: "no-store"});
     if (!res.ok)
@@ -18,17 +18,24 @@ export default async function RecipePage({
     return (
         <section className="container mx-auto px-4 py-8">
             <article className="bg-white rounded-2xl shadow-md p-8">
-                {/* Title */}
-                <header className="mb-8">
-                    <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
-                        {recipe.title}
-                    </h1>
-                    <p>
-                        {recipe.description}
-                    </p>
+                <header className="grid grid-cols-2 gap-x-4 mb-8">
+                    <div className="col-span-2 md:col-span-1">
+                        <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
+                            {recipe.title}
+                        </h1>
+                        <p>
+                            {recipe.description}
+                        </p>
+                    </div>
+                    <div className="col-span-2 md:col-span-1">
+                        <div className="w-full aspect-video bg-zinc-200 rounded-md overflow-hidden">
+                            <img
+                                src={recipe.image ?? 'https://www.bachsermaert.ch/wp-content/uploads/2022/02/placeholder.png'}
+                                className="w-full h-full object-contain"/>
+                        </div>
+                    </div>
                 </header>
 
-                {/* Ingredients */}
                 <section className="mb-8">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                         Zutaten
@@ -42,7 +49,6 @@ export default async function RecipePage({
                     </ul>
                 </section>
 
-                {/* Instructions */}
                 <section className="mb-8">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                         Anleitung
@@ -66,7 +72,6 @@ export default async function RecipePage({
                     </div>
                 </section>
 
-                {/* Actions */}
                 <footer className="flex flex-col sm:flex-row gap-4">
                     <Link
                         href="/"

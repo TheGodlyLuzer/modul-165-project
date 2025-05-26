@@ -73,7 +73,6 @@ export default function CreatePage() {
                 onSubmit={handleSubmit}
                 className="bg-white rounded-2xl shadow p-6 space-y-6"
             >
-                {/* Title */}
                 <div>
                     <label
                         htmlFor="title"
@@ -91,7 +90,6 @@ export default function CreatePage() {
                     />
                 </div>
 
-                {/* Description */}
                 <div>
                     <label
                         htmlFor="description"
@@ -109,7 +107,6 @@ export default function CreatePage() {
                     />
                 </div>
 
-                {/* Image URL */}
                 <div>
                     <label
                         htmlFor="image"
@@ -127,7 +124,6 @@ export default function CreatePage() {
                     />
                 </div>
 
-                {/* Ingredients List */}
                 <div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-4">
                         Zutaten
@@ -213,10 +209,9 @@ export default function CreatePage() {
                     </button>
                 </div>
 
-                {/* Steps List */}
                 <div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                        Steps
+                        Schritte
                     </h3>
                     <div className="space-y-4">
                         {steps.map((step, idx) => (
@@ -280,7 +275,6 @@ export default function CreatePage() {
                     </button>
                 </div>
 
-                {/* Submit */}
                 <div>
                     <button
                         type="submit"

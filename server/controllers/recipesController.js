@@ -14,13 +14,37 @@ const recipeSchema = Joi.object({
 
 async function getAllRecipes(req, res) {
     try {
-        const result = await req.app.locals.recipesDb.list({ include_docs: true });
-        const recipes = result.rows.map(r => r.doc);
-        res.json(recipes);
+        const { q } = req.query;
+        // Base selector: exclude design docs (_id starting with "_design")
+        const selector = {
+            _id: { $not: { $regex: '^_design' } }
+        };
+
+        // If there's a search term, extend selector to match title or description
+        if (q && q.trim()) {
+            const term = q.trim();
+            selector.$or = [
+                { title:       { $regex: `(?i)${term}` } },
+                { description: { $regex: `(?i)${term}` } }
+            ];
+        }
+
+        const result = await req.app.locals.recipesDb.find({
+            selector,
+            // Only return the fields your frontend needs
+            fields: ['_id','title','description','image','ingredients','instructions','createdAt'],
+            // you can add sort or pagination here if needed:
+            // sort: [{ createdAt: 'desc' }],
+            // limit: 100
+        });
+
+        res.json(result.docs);
     } catch (err) {
+        console.error('Error fetching recipes:', err);
         res.status(500).json({ error: err.message });
     }
 }
+
 
 async function getRecipeById(req, res) {
     try {
