@@ -8,14 +8,10 @@ const app = express();
 
 const allowedOrigins = [
     'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'http://next-frontend:3000',
 ];
 
 app.use(cors({
     origin: (origin, callback) => {
-        console.log('CORS origin:', origin);
-
         if (!origin) return callback(null, true);
         if (allowedOrigins.includes(origin)) {
             return callback(null, true);

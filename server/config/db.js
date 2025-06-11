@@ -9,9 +9,16 @@ async function initCouch() {
         catch (e) { await nano.db.create(db); }
     }
 
+    const recipesDb = nano.db.use('recipes');
+    await recipesDb.createIndex({
+        index: { fields: ['title', 'createdAt'] },
+        ddoc: 'recipes-index',
+        name: 'by-title-and-date'
+    });
+
     return {
         usersDb: nano.db.use('users'),
-        recipesDb: nano.db.use('recipes')
+        recipesDb
     };
 }
 module.exports = { initCouch };

@@ -206,7 +206,7 @@ export default function CreatePage() {
                         onClick={addIngredient}
                         className="mt-2 text-blue-600 text-sm"
                     >
-                        + Add Ingredient
+                        + Zutat hinzufügen
                     </button>
                 </div>
 
