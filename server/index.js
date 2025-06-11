@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { initCouch } = require('./config/db');
+const { importDemoData } = require('./scripts/importDemoData');
 
 dotenv.config();
 const app = express();
@@ -32,6 +33,8 @@ initCouch()
         app.locals.recipesDb = dbs.recipesDb;
 
         app.use('/api/recipes', require('./routes/recipes'));
+
+        importDemoData()
 
         const PORT = process.env.PORT || 3000;
         app.listen(PORT, () => {
