@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useDebounce } from 'use-debounce';
 import { Recipe } from '@/models/recipe';
+import {apiUrl} from "@/app/utils/apiUrl";
 
 export default function HomePage() {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -19,7 +20,7 @@ export default function HomePage() {
                     ? `?q=${encodeURIComponent(debouncedSearch.trim())}`
                     : '';
                 const res = await fetch(
-                    `${process.env.API_URL}/recipes${query}`,
+                    `${apiUrl()}/recipes${query}`,
                     { cache: 'no-store' }
                 );
                 const data: Recipe[] = await res.json();

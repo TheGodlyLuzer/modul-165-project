@@ -1,6 +1,7 @@
 import {Recipe} from "@/models/recipe";
 import Link from "next/link";
 import {notFound} from "next/navigation";
+import {apiUrl} from "@/app/utils/apiUrl";
 import DeleteButton from "@/components/DeleteButton";
 
 type Props = {
@@ -9,7 +10,10 @@ type Props = {
 
 export default async function RecipePage({params}: Props) {
     const {id} = await params;
-    const res = await fetch(`${process.env.API_URL}/recipes/${id}`, {cache: "no-store"});
+
+    console.log(apiUrl());
+
+    const res = await fetch(`${apiUrl()}/recipes/${id}`, {cache: "no-store"});
     if (!res.ok)
         notFound();
 

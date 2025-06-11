@@ -2,6 +2,7 @@
 
 import React, { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import {apiUrl} from "@/app/utils/apiUrl";
 
 type Ingredient = { name: string; amount: string; unit: string };
 type Step = { description: string; time: string };
@@ -50,7 +51,7 @@ export default function CreatePage() {
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
 
-        await fetch(`${process.env.API_URL}/recipes`, {
+        await fetch(`${apiUrl()}/recipes`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

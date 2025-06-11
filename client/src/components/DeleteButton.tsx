@@ -1,12 +1,13 @@
 "use client";
 
 import {useRouter} from "next/navigation";
+import {apiUrl} from "@/app/utils/apiUrl";
 
 export default function DeleteButton({id}: {id: string}) {
     const router = useRouter();
 
     const deleteRecipe = async () => {
-        await fetch(`${process.env.API_URL}/recipes/${id}`, {
+        await fetch(`${apiUrl()}/recipes/${id}`, {
             method: 'DELETE',
         });
 

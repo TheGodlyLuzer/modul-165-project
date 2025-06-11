@@ -29,7 +29,7 @@ export default function RootLayout({children}: PropsWithChildren) {
         <header className="bg-white shadow-sm">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
                 <h1 className="text-2xl font-bold hover:text-blue-600 transition-colors">
-                    <Link href="/">Rordon Gamsey's Kochbuch</Link>
+                    <Link href="/">Rordon Gamsey&apos;s Kochbuch</Link>
                 </h1>
                 <nav>
                     <Link

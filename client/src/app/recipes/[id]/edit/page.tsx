@@ -2,6 +2,7 @@
 
 import React, { FormEvent, useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import {apiUrl} from "@/app/utils/apiUrl";
 
 type Ingredient = { name: string; amount: string; unit: string };
 type Instruction = { description: string; time: string };
@@ -27,7 +28,7 @@ export default function EditRecipePage() {
 
     useEffect(() => {
         async function load() {
-            const res = await fetch(`${process.env.API_URL}/recipes/${id}`, {
+            const res = await fetch(`${apiUrl()}/recipes/${id}`, {
                 cache: 'no-store',
             });
             if (!res.ok) {
@@ -83,7 +84,7 @@ export default function EditRecipePage() {
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        await fetch(`${process.env.API_URL}/recipes/${id}`, {
+        await fetch(`${apiUrl()}/recipes/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

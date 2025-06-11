@@ -1,16 +1,27 @@
-# 1. base image
-FROM node:18-alpine
-
-# 2. set working dir
+FROM node:20-alpine AS deps
 WORKDIR /app
 
-# 3. copy only package manifests, install deps
-COPY package.json package-lock.json* ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# 4. copy rest of source
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# 5. expose and run
+RUN npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV production
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+
+CMD ["npm", "start"]
